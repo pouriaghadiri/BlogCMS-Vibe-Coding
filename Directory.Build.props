@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MediatRVersion>12.2.0</MediatRVersion>
+    <FluentValidationVersion>11.9.0</FluentValidationVersion>
+    <AutoMapperVersion>12.0.1</AutoMapperVersion>
+    <MicrosoftAspNetCoreOpenApiVersion>8.0.0</MicrosoftAspNetCoreOpenApiVersion>
+    <SwashbuckleAspNetCoreVersion>6.5.0</SwashbuckleAspNetCoreVersion>
+    <MicrosoftEntityFrameworkCoreVersion>8.0.0</MicrosoftEntityFrameworkCoreVersion>
+    <MicrosoftEntityFrameworkCoreSqlServerVersion>8.0.0</MicrosoftEntityFrameworkCoreSqlServerVersion>
+    <MicrosoftEntityFrameworkCoreToolsVersion>8.0.0</MicrosoftEntityFrameworkCoreToolsVersion>
+    <MicrosoftAspNetCoreAuthenticationJwtBearerVersion>8.0.0</MicrosoftAspNetCoreAuthenticationJwtBearerVersion>
+    <MicrosoftAspNetCoreIdentityEntityFrameworkCoreVersion>8.0.0</MicrosoftAspNetCoreIdentityEntityFrameworkCoreVersion>
+  </PropertyGroup>
+</Project> 
