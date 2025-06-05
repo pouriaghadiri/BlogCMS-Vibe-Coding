@@ -1,4 +1,5 @@
 using MediatR;
+using System.Security.Claims;
 
 namespace BlogCMS.Application.Posts.Commands.CreatePost;
 
@@ -16,4 +17,5 @@ public record CreatePostCommand : IRequest<Guid>
     public Guid CategoryId { get; init; }
     public List<string> Tags { get; init; } = new();
     public string AuthorId { get; init; } = string.Empty;
+    public ClaimsPrincipal User { get; init; } = null!;
 } 

@@ -20,7 +20,7 @@ public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, PaginatedList
 
     public async Task<PaginatedList<PostDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
     {
-        var query = _postRepository.GetAllAsync().Result.AsQueryable();
+        var query = _postRepository.Query();
 
         // Apply filters
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))

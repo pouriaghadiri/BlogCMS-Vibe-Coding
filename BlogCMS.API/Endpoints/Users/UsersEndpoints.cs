@@ -1,6 +1,7 @@
 using BlogCMS.Application.Common.Models;
 using BlogCMS.Application.Users.Commands.ChangePassword;
 using BlogCMS.Application.Users.Commands.CreateUser;
+using BlogCMS.Application.Users.Commands.Login;
 using BlogCMS.Application.Users.Commands.UpdateCurrentUser;
 using BlogCMS.Application.Users.DTOs;
 using BlogCMS.Application.Users.Queries.GetCurrentUser;
@@ -17,6 +18,19 @@ public static class UsersEndpoints
         var group = app.MapGroup("/api/users")
             .WithTags("Users")
             .WithOpenApi();
+
+        // POST /api/users/login
+        group.MapPost("/login", async (
+            [FromBody] LoginCommand command,
+            IMediator mediator) =>
+        {
+            var result = await mediator.Send(command);
+            return Results.Ok(ApiResponse<LoginResponseDto>.Succeed(result, "Login successful"));
+        })
+        .WithName("Login")
+        .WithSummary("Login user and get JWT token")
+        .Produces<ApiResponse<LoginResponseDto>>(200)
+        .Produces<ApiResponse<LoginResponseDto>>(400);
 
         // POST /api/users
         group.MapPost("/", async (

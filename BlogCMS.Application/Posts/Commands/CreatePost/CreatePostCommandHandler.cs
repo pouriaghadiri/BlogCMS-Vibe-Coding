@@ -25,7 +25,7 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Guid>
     {
         _postRepository = postRepository;
         _categoryRepository = categoryRepository;
-        _categoryRepository = categoryRepository;
+        _tagRepository = tagRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _userManager = userManager;
@@ -33,6 +33,13 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Guid>
 
     public async Task<Guid> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
+        // Get current user
+        var user = await _userManager.GetUserAsync(request.User);
+        if (user == null)
+        {
+            throw new UnauthorizedAccessException("User is not authenticated.");
+        }
+
         // Validate category exists
         var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
         if (category == null)
@@ -53,7 +60,8 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Guid>
             MetaTitle = request.MetaTitle,
             MetaDescription = request.MetaDescription,
             MetaKeywords = request.MetaKeywords,
-            CategoryId = request.CategoryId
+            CategoryId = request.CategoryId,
+            AuthorId = user.Id
         };
 
         // Add tags

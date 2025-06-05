@@ -16,7 +16,7 @@ public class Post : BaseEntity
     public string? MetaKeywords { get; set; }
 
     // Foreign keys
-    public Guid AuthorId { get; set; }
+    public string AuthorId { get; set; } = string.Empty;
     public Guid CategoryId { get; set; }
 
     // Navigation properties
