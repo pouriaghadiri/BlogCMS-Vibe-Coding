@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using BlogCMS.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,6 +100,9 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreatePostCommandValidator).As
 // Add Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Add Background Services
+builder.Services.AddHostedService<ScheduledPostService>();
 
 // Add HttpContextAccessor
 builder.Services.AddHttpContextAccessor();

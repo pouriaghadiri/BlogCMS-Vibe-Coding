@@ -26,9 +26,38 @@ public class Post : BaseEntity
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
 
+/// <summary>
+/// Represents the current state of a post in the system.
+/// </summary>
 public enum PostStatus
 {
+    /// <summary>
+    /// Post is in draft state and not visible to the public.
+    /// Can be edited and published later.
+    /// </summary>
     Draft,
+
+    /// <summary>
+    /// Post is published and visible to the public.
+    /// Can be edited by authorized users.
+    /// </summary>
     Published,
-    Scheduled
+
+    /// <summary>
+    /// Post is scheduled to be published at a specific time.
+    /// Will automatically change to Published when the scheduled time is reached.
+    /// </summary>
+    Scheduled,
+
+    /// <summary>
+    /// Post was previously published but has been unpublished.
+    /// Not visible to the public but can be republished.
+    /// </summary>
+    Unpublished,
+
+    /// <summary>
+    /// Post is archived and cannot be modified.
+    /// Archived posts are still visible but cannot be edited by anyone.
+    /// </summary>
+    Archived
 } 

@@ -1,4 +1,5 @@
 using BlogCMS.Application.Common.Models;
+using BlogCMS.Application.Posts.Commands.ChangePostStatus;
 using BlogCMS.Application.Posts.Commands.CreatePost;
 using BlogCMS.Application.Posts.DTOs;
 using BlogCMS.Application.Posts.Queries.GetPostById;
@@ -74,5 +75,28 @@ public static class PostsEndpoints
         .RequireAuthorization("RequireAdminRole")
         .Produces<ApiResponse<Guid>>(201)
         .Produces<ApiResponse<Guid>>(400);
+
+        // PUT /api/posts/{id}/status
+        group.MapPut("/{id}/status", async (
+            IMediator mediator,
+            Guid id,
+            [FromBody] ChangePostStatusCommand command
+        ) =>
+        {
+            var newCommand = new ChangePostStatusCommand
+            {
+                PostId = id,
+                NewStatus = command.NewStatus,
+                PublishDate = command.PublishDate
+            };
+            var result = await mediator.Send(newCommand);
+            return Results.Ok(ApiResponse<bool>.Succeed(result, "Post status updated successfully"));
+        })
+        .WithName("ChangePostStatus")
+        .WithSummary("Change the status of a post")
+        .RequireAuthorization("RequireAdminRole")
+        .Produces<ApiResponse<bool>>(200)
+        .Produces<ApiResponse<bool>>(400)
+        .Produces<ApiResponse<bool>>(404);
     }
 } 
